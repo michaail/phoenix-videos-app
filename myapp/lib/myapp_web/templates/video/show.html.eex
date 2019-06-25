@@ -1,0 +1,25 @@
+<div class="grid video-index">
+  <div class="medium-8 medium-offset-2 columns">
+    <div class="callout secondary">
+      <h3>
+        <%= @video.title %> <span class="duration-text">(<%= @video.duration %>)</span>
+      </h3>
+      <div>
+        Views: <%= Number.Delimit.number_to_delimited(@video.view_count, precision: 0) %>
+      </div>
+      <div class="responsive-embed widescreen text-center">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @video.video_id %>?rel=0" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="row">
+        <div class="small-4 medium-2 columns">
+          <%= link "Back", to: video_path(@conn, :index), class: "button tiny" %>
+        </div>
+        <div class="small-4 medium-2 columns">
+          <%= if @conn.assigns.user && @conn.assigns.user.id == @video.user_id do %>
+            <%= link "Delete video", to: video_path(@conn, :delete, @video), method: :delete, data: [confirm: "Are you sure?"], class: "button tiny alert" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
